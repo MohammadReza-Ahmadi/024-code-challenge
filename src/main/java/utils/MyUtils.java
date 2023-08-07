@@ -91,7 +91,6 @@ public class MyUtils {
     }
 
 
-
     // read number that separated by a single space in a file
     public static String readNumberSpaceSeparatedFileFromResource(String fullFileName) {
         ClassLoader classLoader = MyUtils.class.getClassLoader();
@@ -106,12 +105,78 @@ public class MyUtils {
         return content;
     }
 
-    public static void printArray(String msg, int[] A){
+    public static void printArray(String msg, int[] A) {
         System.out.print("\n" + msg + ": ");
         Arrays.stream(A).forEach((a) -> System.out.print(a + ", "));
     }
 
-    public static void printArrayPerLine(int[] a){
+    public static void printArrayPerLine(int[] a) {
         Arrays.stream(a).forEach(System.out::println);
+    }
+
+    public static void printDP(int[][] dp, int[] arr) {
+        for (int i = 0; i <= dp.length; i++) {
+
+            if (i == 0) {
+                System.out.print("   ");
+            }
+
+            for (int j = 0; j < dp[0].length; j++) {
+                if (i == 0) {
+                    System.out.print(j + "  ");
+
+                } else if (i == 1) {
+                    if (j == 0) {
+                        System.out.print("0: " + dp[i - 1][j] + ", ");
+                    } else {
+                        System.out.print(dp[i - 1][j] + ", ");
+                    }
+
+                } else if (i > 1) {
+                    if (j == 0) {
+                        System.out.print(arr[i - 2] + ": " + dp[i - 1][j] + ", ");
+                    } else {
+                        System.out.print(dp[i - 1][j] + ", ");
+                    }
+                }
+            }
+
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        int[][] dp = new int[4][6];
+        int[] arr = {500,600,700};
+
+        //fill first cols
+        for (int i=0; i < dp.length; i++){
+            dp[i][0] = i+1 + 100;
+        }
+
+        //fill first rows
+        for (int i=0; i < dp[0].length; i++){
+            dp[0][i] = i+1 + 200;
+        }
+
+        printDP(dp, arr);
+
+        for (int i = 0; i < dp.length; i++) {
+            for (int j = 0; j < dp[0].length; j++) {
+
+            }
+        }
+    }
+
+    public static int[] getIntArray(String spaceSeperatedValue){
+       return Arrays.stream(spaceSeperatedValue.split(" "))
+                .mapToInt(Integer::valueOf)
+                .toArray();
+    }
+
+    public static String getCommaSeperatedValues(String spaceSeperatedValue){
+        String ret = spaceSeperatedValue.replaceAll(" ", ", ");
+        System.out.println(ret);
+        return ret;
     }
 }
